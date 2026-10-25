@@ -1,0 +1,47 @@
+{
+  "project": "olcina-ia",
+  "description": "Ecosistema curado de IA: Plataforma Web (Hub/Catálogo en Next.js) y Herramienta CLI compatible con el estándar abierto de Agent Skills para distribuir, instalar y sincronizar skills y flujos de trabajo (SDD).",
+  "rules": {
+    "one_feature_at_a_time": true,
+    "require_tests_to_close": true,
+    "require_approved_spec_to_implement": true,
+    "valid_status": [
+      "pending",
+      "spec_ready",
+      "in_progress",
+      "done",
+      "blocked"
+    ],
+    "sdd_required_when": "feature has \"sdd\": true"
+  },
+  "features": [
+    {
+      "id": 1,
+      "name": "sdd-agent-harness-and-overview",
+      "status": "done",
+      "sdd": false,
+      "description": "Configuración inicial del ciclo de agentes SDD (adaptado de lifup) y documentación fundacional del proyecto (README.md, docs/OVERVIEW.md, docs/architecture.md, docs/conventions.md, docs/specs.md, docs/verification.md, AGENTS.md, CHECKPOINTS.md y subagentes)."
+    },
+    {
+      "id": 2,
+      "name": "registry-schema-and-curation",
+      "status": "pending",
+      "sdd": true,
+      "description": "Definición del esquema de datos y manifiesto del catálogo curado (skills, agentes y workflows SDD), garantizando compatibilidad 100% con el estándar abierto (SKILL.md y skills-lock.json) y validación obligatoria de atribución (autor original, licencia y enlace a la fuente) para recursos de terceros."
+    },
+    {
+      "id": 3,
+      "name": "web-catalog-hub",
+      "status": "pending",
+      "sdd": true,
+      "description": "Implementación de la Plataforma Web (Hub/Catálogo en apps/web y documentación en apps/docs) para explorar skills y flujos SDD curados, filtrar por categoría, visualizar la autoría/fuente original y copiar comandos de instalación del CLI."
+    },
+    {
+      "id": 4,
+      "name": "cli-skills-and-sdd-installer",
+      "status": "pending",
+      "sdd": true,
+      "description": "Desarrollo de la herramienta CLI en packages/cli para instalar y sincronizar tanto skills individuales (100% compatible con el estándar abierto de Agent Skills) como flujos completos de desarrollo (incluyendo el ciclo SDD completo de este repositorio), mostrando siempre la atribución de terceros."
+    }
+  ]
+}
