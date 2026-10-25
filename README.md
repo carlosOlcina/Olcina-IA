@@ -1,159 +1,90 @@
-# Turborepo starter
+# Olcina-IA
 
-This Turborepo starter is maintained by the Turborepo core team.
+> **Ecosistema personal curado de IA: Plataforma Web (Hub/Catálogo) + Herramienta CLI para distribuir, instalar y sincronizar Agent Skills y flujos de trabajo (SDD).**
 
-## Using this example
+Documentación detallada de visión y alcance en [`docs/OVERVIEW.md`](docs/OVERVIEW.md) y guía operativa para agentes en [`AGENTS.md`](AGENTS.md).
 
-Run the following command:
+---
 
-```sh
-npx create-turbo@latest
+## 1. ¿Qué es Olcina-IA? (Visión General)
+
+**Olcina-IA** es un ecosistema compuesto por una **Plataforma Web (Hub/Catálogo)** y una **Herramienta CLI** (actualmente en fase de diseño y construcción inminente) pensado para centralizar, distribuir y gestionar mis setups personalizados de IA, *skills* y flujos de trabajo (*workflows*).
+
+- **Plataforma Web (`apps/web` y `apps/docs`):** Catálogo interactivo y portal de documentación donde explorar las *skills*, configuraciones de agentes y flujos de desarrollo, consultar su funcionamiento y obtener los comandos de instalación.
+- **Herramienta CLI (`packages/cli` — planeada en MVP):** Gestor de línea de comandos para instalar y mantener sincronizados en cualquier repositorio tanto *skills* individuales como flujos completos de desarrollo asistido por IA.
+
+---
+
+## 2. Curación y Autoría (Criterio de Selección)
+
+El repositorio funciona como un **registro *opinionated* (curado por mí)**:
+
+- Las *skills*, agentes y configuraciones incluidas son aquellas que considero mejores o más óptimas para mi flujo de trabajo de ingeniería.
+- Los recursos pueden ser de **creación propia** o de **terceros**.
+- **Atribución estricta obligatoria:** En caso de recursos de terceros (o adaptaciones de estos), es un requisito innegociable mantener y mostrar siempre en el registro, en la web y en el CLI:
+  1. La **atribución y autoría original**.
+  2. El **enlace directo a la fuente** o repositorio de origen.
+  3. La licencia original del autor.
+
+---
+
+## 3. Capacidades del CLI e Interoperabilidad
+
+El CLI de **Olcina-IA** está diseñado para:
+
+1. **Instalar y sincronizar *skills* y *workflows* completos:** Permite incorporar tanto *skills* puntuales como flujos integrales de desarrollo — por ejemplo, flujos **SDD (Spec-Driven Development)** y el propio ciclo multi-agente que gobierna este proyecto (`leader`, `spec_author`, `implementer`, `reviewer`, `commiter`).
+2. **Compatibilidad 100% con el estándar abierto de *skills*:** Actúa como un gestor extendido sin romper la compatibilidad con el estándar abierto de herramientas de *Agent Skills* existente (`.agents/skills/<name>/SKILL.md`, `skills-lock.json`, frontmatter estándar).
+
+---
+
+## 4. Estado Actual vs. Futuro (Roadmap)
+
+### Corto Plazo (MVP — Alcance Actual)
+- **Definición de flujos base:** Configuración y adaptación del flujo multi-agente **SDD (Spec-Driven Development)** en este repositorio.
+- **Estructura del repositorio y registro:** Consolidación del monorepo Turborepo y esquema de metadatos/atribución para *skills* y *workflows*.
+- **Catálogo Web (`apps/web` y `apps/docs`):** Interfaz web para explorar el registro curado y su documentación.
+- **Desarrollo del CLI instalador (`packages/cli`):** Herramienta CLI compatible con el estándar abierto para instalar *skills* y flujos SDD.
+
+### Ideas Futuras / Backlog Exploratorio *(Out of Scope por ahora)*
+> **Nota importante:** Este punto se documenta únicamente como exploración futura; está en el aire y **no forma parte de la arquitectura actual ni del alcance del MVP**.
+- **Capa de memoria persistente para agentes:** Evaluación futura de un flujo o capa de memoria persistente para que los agentes recuerden el contexto completo entre sesiones más allá del seguimiento en archivos del repositorio.
+
+---
+
+## 5. Estructura del Monorepo y Flujo SDD
+
+Este proyecto utiliza **Turborepo** con **pnpm** y sigue **Spec-Driven Development (SDD)** para el desarrollo de sus funcionalidades:
+
+| Ruta | Descripción |
+|---|---|
+| `apps/web` | Aplicación Next.js 16 — Hub / Catálogo Web de *skills* y *workflows* |
+| `apps/docs` | Aplicación Next.js 16 — Documentación del ecosistema y guías SDD |
+| `packages/ui` | Librería de componentes React compartidos (`@repo/ui`) |
+| `packages/eslint-config` | Configuraciones de ESLint compartidas |
+| `packages/typescript-config` | Configuraciones de TypeScript compartidas |
+| `.agents/agents/` | Subagentes del ciclo SDD (`leader`, `spec_author`, `implementer`, `reviewer`, `commiter`, `skill-generator`, `secure-auditer`) |
+| `.agents/skills/` | *Skills* activas en el workspace |
+| `docs/` | Documentación estándar del proyecto (`OVERVIEW.md`, `architecture.md`, `conventions.md`, `specs.md`, `verification.md`) |
+| `specs/` | Especificaciones Kiro-style por feature (`requirements.md`, `design.md`, `tasks.md`) |
+| `progress/` | Seguimiento de sesión activa (`current.md`) e historial (`history.md`) |
+| `feature_list.json` | Registro de features y su estado en el ciclo SDD |
+| `CHECKPOINTS.md` | Criterios objetivos de verificación del estado del repositorio |
+
+### Comandos Principales
+
+```bash
+# Instalar dependencias
+pnpm install
+
+# Ejecutar entorno de desarrollo (web en :3000, docs en :3001)
+pnpm run dev
+
+# Ejecutar linter en todos los paquetes
+pnpm run lint
+
+# Verificar tipos TypeScript en todo el monorepo
+pnpm run check-types
+
+# Compilar todas las aplicaciones y paquetes
+pnpm run build
 ```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `@next/eslint-plugin-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo build
-pnpm exec turbo build
-pnpm exec turbo build
-```
-
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo build --filter=docs
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
